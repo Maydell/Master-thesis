@@ -1,0 +1,60 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\title{Unsupervised learning of roles in professional esports teams}
+\author{Mats Stichel \\ mstichel@kth.se \\ At Abios Gaming AB \\ Supervised by Anton Janér}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{Background}
+This thesis is in the field of machine learning and focuses on unsupervised learning. In particular, it will investigate techniques for clustering data points and evaluate the results in comparison to clustering by a human community. Hopefully, this will give insight into the differences and similarities between the methods of machine learning and human intuition, as well as highlight the differences in the choosing of parameter between the two.
+
+The practical part of the thesis will be executed at Abios Gaming AB in Stockholm. It will help in defining what player roles exist in different games and what parameters define and distinguish the roles. This information can be valuable in predicting outcomes of matches, and in constructing successful teams.
+
+The goal of this thesis is to understand what parameters define existing roles (as defined by the games and/or the community) as well as to find alternative roles defined by alternative clustering of the data points.
+
+\section{Research question}
+The research question under investigation is 
+\begin{quote}
+    What major player roles exist in professional teams in CS:GO and Dota 2, and what parameters define these roles? And as a follow-up question: What combination of these roles comprise the most successful teams in either of these games?
+\end{quote}
+
+The research question will be answered through a literature study on the subject. This will then lead to the design of a suitable model and the selection of input parameters for the games under investigation. Once the model is designed and the data correctly calculated and formatted from the raw data provided by Abiosgaming, the model will be trained on this data and the results evaluated and presented.
+
+To formulate a hypothesis, some knowledge about the games under investigation is required which, in the case of Dota 2, the author is missing. The hypothesis can therefor at this point only be formulated about the game CS:GO, and will have to be revised at a later point with the help of expertise at Abiosgaming AB.
+
+Designed by intuition and experience of community analysis, the following results are expected:
+\begin{quote}
+    {\bf CS:GO:} Roles will be defined by different parameters based on the side currently played by the team (the Terrorist side or the Counter-terrorist side). The roles are defined by parameters such as 
+    \begin{itemize}
+        \item vicinity to teammates
+        \item selection of weapons used
+        \item selection of grenades bought and used (and when in the round they were used)
+        \item accuracy of the player
+        \item when in the round the player got their first kill
+        \item when in the round the player dies
+        \item how many shots the player fires in a round.
+    \end{itemize}
+\end{quote}
+
+\section{Evaluation and interest}
+To evaluate whether the research question has been answered the roles found using the unsupervised learning should be compared to existing roles defined by the community. The roles should only be accepted as well-defined if it is possible to outline the differences in the parameters defining each role.
+
+The thesis aims to be relevant to anyone interested in the field of unsupervised learning and its applications and in particular anyone interested in the use of machine learning in esports. The research is aimed to guide any reader in the application of unsupervised learning on a new data set and with a novel research question. The search of roles in the behaviour patterns is something most humans do daily, but esports gives us a unique opportunity to investigate these patterns from a machine learning rerspective, because of the detail and amount of the data available about each players behaviour in the game.
+
+\section{Requirements and timeline}
+Abios Gaming AB has long back collected raw data from professional matches in CS:GO and Dota 2 which will be available when training the model. The company will also provide computing power for training the model and for evaluating the model.
+
+The thesis will only investigate how the clutering of the roles 
+
+\section{Eligibility}
+I hereby assure that I am eligible to undertake the Master Thesis.
+
+To complete my studies I have to undertake DD2209 and SF1626.
+
+SF1626 will, if possible, be taken during the spring of 2018 and DD2209 will be completed the next time the course is held.
+
+\end{document}
