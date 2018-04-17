@@ -17,7 +17,7 @@ The practical part of the thesis will be executed at Abios Gaming AB in Stockhol
 The goal of this thesis is to understand what parameters define existing roles (as defined by the games and/or the community) as well as to find alternative roles defined by alternative clustering of the data points.
 
 \section{Research question}
-The research question under investigation is 
+The research question under investigation is
 \begin{quote}
     What major player roles exist in professional teams in CS:GO and Dota 2, and what parameters define these roles? And as a follow-up question: What combination of these roles comprise the most successful teams in either of these games?
 \end{quote}
@@ -28,7 +28,7 @@ To formulate a hypothesis, some knowledge about the games under investigation is
 
 Designed by intuition and experience of community analysis, the following results are expected:
 \begin{quote}
-    {\bf CS:GO:} Roles will be defined by different parameters based on the side currently played by the team (the Terrorist side or the Counter-terrorist side). The roles are defined by parameters such as 
+    {\bf CS:GO:} Roles will be defined by different parameters based on the side currently played by the team (the Terrorist side or the Counter-terrorist side). The roles are defined by parameters such as
     \begin{itemize}
         \item vicinity to teammates
         \item selection of weapons used
@@ -45,16 +45,25 @@ To evaluate whether the research question has been answered the roles found usin
 
 The thesis aims to be relevant to anyone interested in the field of unsupervised learning and its applications and in particular anyone interested in the use of machine learning in esports. The research is aimed to guide any reader in the application of unsupervised learning on a new data set and with a novel research question. The search of roles in the behaviour patterns is something most humans do daily, but esports gives us a unique opportunity to investigate these patterns from a machine learning rerspective, because of the detail and amount of the data available about each players behaviour in the game.
 
+\section{Literature study}
+The literature study will firsty focus on the pre-processing of the data to generate usable inputs for the model to use in training. It will also cover different approaches to unsupervised learning and the strengths, weaknesses, and potential errors of each method. 
+
 \section{Requirements and timeline}
-Abios Gaming AB has long back collected raw data from professional matches in CS:GO and Dota 2 which will be available when training the model. The company will also provide computing power for training the model and for evaluating the model.
+Abios Gaming has long back collected raw data from professional matches in CS:GO and Dota 2 which will be available when training the model. The company will also provide computing power for training the model and for evaluating the model.
 
-The thesis will only investigate how the clutering of the roles 
+This thesis will cover the formatting and pre-processing of the data, as well as different approaches to unsupervised learning of roles. It will not cover any application of the results and will only analyse the roles from a machine learning perspective, not from an esports perspective.
 
-\section{Eligibility}
-I hereby assure that I am eligible to undertake the Master Thesis.
+\subsection{Timeline}
+\begin{itemize}
+\item{\bf Pre-study} During the next 2 weeks I will conclude the pre-study including writing the background of the thesis. This is planned to be completed within April.
+\item{\bf Following the pre-study the implementation of the model will begin. This will include designing the input and generating it from the historic data, pre-process the data in different ways (depending on the pre-study), and constructing a model for the unsupervised learning. This is planned to be completed within May.}
+\item{\bf Training and evaluation} This will include iterating the pre-processing from the previous step after the first results to achieve better results. If the results are poor, this step will also include improving the model. This is planned to be completed within June.
+\item{\bf Report} Parallel with the previous step (starting mid June) the report will be filled out with partial results and method. This should be completed as the results are completed. Thereafter the rest of the report will be completed within July.
+\end{itemize}
 
-To complete my studies I have to undertake DD2209 and SF1626.
+\cite{patashnik-bibtexing}
 
-SF1626 will, if possible, be taken during the spring of 2018 and DD2209 will be completed the next time the course is held.
+\bibliography{ref}{}
+\bibliographystyle{plain}
 
 \end{document}
