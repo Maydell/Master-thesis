@@ -10,17 +10,22 @@
 \maketitle
 
 \section{Background}
-This thesis is in the field of machine learning and focuses on unsupervised learning. In particular, it will investigate techniques for clustering data points and evaluate the results in comparison to clustering by a human community. Hopefully, this will give insight into the differences and similarities between the methods of machine learning and human intuition, as well as highlight the differences in the choosing of parameter between the two.
+This thesis will cover the application of unsupervised learning to determine roles of players in esports teams. Esport, or electronic sport, is competition in video games. Most of the currently popular games played as esports are played as competitions between either two teams or two players. The two computer games used for this thesis are \it{Dota 2} and \it{Counter-strike: Global Offensive} (henceforth referred to as CS:GO), which will be described further in the next section. Both of these games are played by two teams competing against eachother, with players filling different roles in the gameplay. Sometimes there are roles defined by the game (we will see in the next section that this is the case in Dota 2), and sometimes there are roles set by the team as part of the gameplan (or tactics). What this thesis will try to achieve is to find these roles in the data from played matches using unsupervised learning.
 
-The practical part of the thesis will be executed at Abios Gaming AB in Stockholm. It will help in defining what player roles exist in different games and what parameters define and distinguish the roles. This information can be valuable in predicting outcomes of matches, and in constructing successful teams.
+\subsection{Dota 2}
 
-The goal of this thesis is to understand what parameters define existing roles (as defined by the games and/or the community) as well as to find alternative roles defined by alternative clustering of the data points.
+
+\subsection{CS:GO}
+In CS:GO, two teams of five players compete by using guns and other utilities to complete objectives and/or "eliminitaing" the opposing teams characters in the game. CS:GO is a \it{first person shooter} (FPS), referring to the positioning of the camera in the game being first person and the usage of guns. The game is played in rounds, with each won round giving the winning team 1 point, and the game ending when one team has received 16 points. Draws are possible and will usually be handled by overtime, meaning the winning score will be increased from 16. The teams each play as one of two sides: the \it{Terrorists}, or the \it{Counter-terrorists}. The sides are swapped when 16 rounds have been played. The objectives of each round are dependant on the side. The \it{Terrorist} side has the objective to plant a bomb at one of several designated positions on the playing field, and subsequently to guard the planted bomb during a limited time until it explodes. If the bomb explodes, or the team "eliminates" the opposing team's characters, the \it{Terrorist} side wins the round. The \it{Counter-terrorist} side, consequently, has the main objective to prevent the bomb from being planted. If the bomb gets planted, the objective becomes to prevent if from exploding by defusing it in time. If they manage to "eliminate" the opposing team's characters before the bomb gets planted \it{or} if the defuse the bomb before it explodes, the \it{Counter-terrorist} side wins the round.
+
 
 \section{Research question}
 The research question under investigation is
 \begin{quote}
     What major player roles exist in professional teams in CS:GO and Dota 2, and what parameters define these roles? And as a follow-up question: What combination of these roles comprise the most successful teams in either of these games?
 \end{quote}
+
+The practical part of the thesis will be executed at Abios Gaming AB in Stockholm. It will help in defining what player roles exist in different games and what parameters define and distinguish the roles. This information can be valuable in predicting outcomes of matches, and in constructing successful teams.
 
 The research question will be answered through a literature study on the subject. This will then lead to the design of a suitable model and the selection of input parameters for the games under investigation. Once the model is designed and the data correctly calculated and formatted from the raw data provided by Abiosgaming, the model will be trained on this data and the results evaluated and presented.
 
