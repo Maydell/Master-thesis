@@ -10,10 +10,7 @@
 \maketitle
 
 \section{Background}
-This thesis will cover the application of unsupervised learning to determine roles of players in esports teams. Esport, or electronic sport, is competition in video games. Most of the currently popular games played as esports are played as competitions between either two teams or two players. The two computer games used for this thesis are {\it Dota 2} and {\it Counter-strike: Global Offensive} (henceforth referred to as CS:GO), which will be described further in the next section. Both of these games are played by two teams competing against each other, with players filling different roles in the gameplay. Sometimes there are roles defined by the game (we will see in the next section that this is the case in Dota 2), and sometimes there are roles set by the team as part of the game plan (or tactics). What this thesis will try to achieve is to find these roles in the data from played matches using unsupervised learning.
-
-\subsection{Dota 2}
-
+This thesis will cover the application of unsupervised learning to determine roles of players in esports teams. Esport, or electronic sport, is competition in video games. Most of the currently popular games played as esports are played as competitions between either two teams or two players. The computer game used for this thesis is {\it Counter-strike: Global Offensive} (henceforth referred to as CS:GO), which will be described further in the next section. The game is played by two teams competing against each other, with players filling different roles in the gameplay. Sometimes there are roles defined by the game, and sometimes there are roles set by the team as part of the game plan (or tactics). What this thesis will try to achieve is to find these roles in the data from played matches using unsupervised learning.
 
 \subsection{CS:GO}
 In CS:GO, two teams of five players compete by using guns and other utilities to complete objectives and/or ``eliminating'' the opposing teams characters in the game. CS:GO is a {\it first person shooter} (FPS), referring to the positioning of the camera in the game being first person and the usage of guns. The game is played in rounds, with each won round giving the winning team 1 point, and the game ending when one team has received 16 points. Draws are possible and will usually be handled by overtime, meaning the winning score will be increased from 16. The teams each play as one of two sides: the {\it Terrorists}, or the {\it Counter-terrorists}. The sides are swapped when 16 rounds have been played. The objectives of each round are dependent on the side. The {\it Terrorist} side has the objective to plant a bomb at one of several designated positions on the playing field, and subsequently to guard the planted bomb during a limited time until it explodes. If the bomb explodes, or the team ``eliminates'' the opposing team's characters, the {\it Terrorist} side wins the round. The {\it Counter-terrorist} side, consequently, has the main objective to prevent the bomb from being planted. If the bomb gets planted, the objective becomes to prevent if from exploding by defusing it in time. If they manage to ``eliminate'' the opposing team's characters before the bomb gets planted {\it or} if they defuse the bomb before it explodes, the {\it Counter-terrorist} side wins the round.
@@ -23,19 +20,17 @@ At the beginning of each round each player receives money to be spent on weapons
 The roles in CS:GO are not decided by the game, but rather by the team and/or circumstance. The role a player fulfills depends on, for instance, what side the team is currently playing on, how much money the player has to spend on weapons and utility, how much money the other players in their team have, and what weapon they specialize in playing with. These are just a few of the factors that a team captain can use to decide how the team should play a round. As some of them can change with each round, players will often change their role from one round to the next. There are, however, roles that are invariant to changes in economy (such as an aggressive playing style), and roles that a player will fulfill any time during the game when the economy allows for it (such as playing with a very expensive and powerful weapon).
 
 \subsection{The data}
-Both CS:GO and Dota 2 game servers record the network communication between the server and all the clients in a {\it demo} file. This file can be used to replay the match at a later time through the game client. Abiosgaming downloads all available demo files from professional matches and extracts most of the data contained in them. The data is inserted into a relational database where it can be queried. Some of the data extracted from the demo files is positions at a regular interval, any event relevant to the above mentioned objectives, the economy of each player, and the status of each objective at the end of each round (i.e. who won the round and which objective was completed).
+In CS:GO game servers record the network communication between the server and all the clients in a {\it demo} file. This file can be used to replay the match at a later time through the game client. Abios Gaming downloads all available demo files from professional matches and extracts most of the data contained in them. The data is inserted into a relational database where it can be queried. Some of the data extracted from the demo files is positions at a regular interval, any event relevant to the above mentioned objectives, the economy of each player, and the status of each objective at the end of each round (i.e. who won the round and which objective was completed).
 
 \section{Research question}
 The research question under investigation is
 \begin{quote}
-    What major player roles exist in professional teams in CS:GO and Dota 2, and what parameters define these roles? And as a follow-up question: What combination of these roles comprise the most successful teams in either of these games?
+    What major player roles exist in professional teams in CS:GO, and what parameters define these roles? And as a follow-up question: What combination of these roles comprise the most successful teams in either of these games?
 \end{quote}
 
 The practical part of the thesis will be executed at Abios Gaming AB in Stockholm. It will help in defining what player roles exist in different games and what parameters define and distinguish the roles. This information can be valuable in predicting outcomes of matches, and in constructing successful teams.
 
-The research question will be answered through the design and study of a suitable model and the selection of input parameters for the games under investigation. Once the model is designed and the data correctly calculated and formatted from the raw data provided by Abiosgaming, the model will be trained on this data and the results evaluated and presented.
-
-To formulate a hypothesis, some knowledge about the games under investigation is required which, in the case of Dota 2, the author is missing. The hypothesis can therefor at this point only be formulated about the game CS:GO, and will have to be revised at a later point with the help of expertise at Abiosgaming AB.
+The research question will be answered through the design and study of a suitable model and the selection of input parameters for the games under investigation. Once the model is designed and the data correctly calculated and formatted from the raw data provided by Abios Gaming, the model will be trained on this data and the results evaluated and presented.
 
 Designed by intuition and experience of community analysis, the following results are expected:
 \begin{quote}
@@ -45,8 +40,8 @@ Designed by intuition and experience of community analysis, the following result
         \item selection of weapons used
         \item selection of grenades bought and used (and when in the round they were used)
         \item accuracy of the player
-        \item when in the round the player got their first kill
-        \item when in the round the player dies
+        \item when in the round the player got their first ``kill''
+        \item when in the round the player ``dies''
         \item how many shots the player fires in a round.
     \end{itemize}
 \end{quote}
@@ -54,24 +49,25 @@ Designed by intuition and experience of community analysis, the following result
 \section{Evaluation and interest}
 To evaluate whether the research question has been answered the roles found using the unsupervised learning should be compared to existing roles defined by the community. The roles should only be accepted as well-defined if it is possible to outline the differences in the parameters defining each role.
 
-The thesis aims to be relevant to anyone interested in the field of unsupervised learning and its applications and in particular anyone interested in the use of machine learning in esports. The research is aimed to guide any reader in the application of unsupervised learning on a new data set and with a novel research question. The search of roles in the behaviour patterns is something most humans do daily, but esports gives us a unique opportunity to investigate these patterns from a machine learning rerspective, because of the detail and amount of the data available about each players behaviour in the game.
+The results are planned to be relevant to Abios Gaming in developing systems to automate the detection of roles in played matches. The roles can be used to create statistics relevant to customers wanting to calculate odds or show stats in their products.
+The thesis aims to be relevant to anyone interested in the field of unsupervised learning and its applications and in particular anyone interested in the use of machine learning in esports. The research is aimed to guide any reader in the application of unsupervised learning on a new data set and with a novel research question. The search of roles in the behavior patterns is something most humans do daily, but esports gives us a unique opportunity to investigate these patterns from a machine learning rerspective, because of the detail and amount of the data available about each players behaviour in the game.
 
 \section{Literature study}
-The literature study will firsty focus on the pre-processing of the data to generate usable inputs for the model to use in training. It will also cover different approaches to unsupervised learning and the strengths, weaknesses, and potential errors of each method.
+The literature study will firstly focus on the pre-processing of the data to format it as appropriate input data for the training. It will also cover different approaches to unsupervised learning and the strengths, weaknesses, and potential errors of each method.
 
 Preliminary sources are the listed in the bibliography. \cite{coates2011analysis} \cite{figueiredo2002unsupervised} \cite{hastie2009unsupervised} \cite{10.1007/978-3-319-24589-8_9}
 
 \section{Requirements and timeline}
-Abios Gaming has long back collected raw data from professional matches in CS:GO and Dota 2 which will be available when training the model. The company will also provide computing power for training the model and for evaluating the model.
+Abios Gaming has long back collected raw data from professional matches in CS:GO which will be available when training the model. The company will also provide computing power for training the model and for evaluating the model.
 
 This thesis will cover the formatting and pre-processing of the data, as well as different approaches to unsupervised learning of roles. It will not cover any application of the results and will only analyse the roles from a machine learning perspective, not from an esports perspective.
 
 \subsection{Timeline}
 \begin{itemize}
-\item{\bf Pre-study} During the next 2 weeks I will conclude the pre-study including writing the background of the thesis. This is planned to be completed within April.
-\item{\bf Implementation} Following the pre-study the implementation of the model will begin. This will include designing the input and generating it from the historic data, pre-process the data in different ways (depending on the pre-study), and constructing a model for the unsupervised learning. This is planned to be completed within May.
-\item{\bf Training and evaluation} This will include iterating the pre-processing from the previous step after the first results to achieve better results. If the results are poor, this step will also include improving the model. This is planned to be completed within June.
-\item{\bf Report} Parallel with the previous step (starting mid June) the report will be filled out with partial results and method. This should be completed as the results are completed. Thereafter the rest of the report will be completed within July.
+\item{\bf Pre-study} During the next 2 weeks I will conclude the pre-study including writing the background of the thesis. This is planned to be completed within mid September.
+\item{\bf Implementation} Following the pre-study the implementation of the model will begin. This will include designing the input and generating it from the historic data, pre-process the data in different ways (depending on the pre-study), and constructing a model for the unsupervised learning. This is planned to be completed within October.
+\item{\bf Training and evaluation} This will include iterating the pre-processing from the previous step after the first results to achieve better results. If the results are poor, this step will also include improving the model. This is planned to be completed within November.
+\item{\bf Report} Parallel with the previous step (starting mid June) the report will be filled out with partial results and method. This should be completed as the results are completed. Thereafter the rest of the report will be completed within December.
 \end{itemize}
 
 \bibliography{ref}{}
