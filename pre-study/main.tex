@@ -1,0 +1,74 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\title{Unsupervised learning of roles in professional esports teams}
+\author{Mats Stichel \\ mstichel@kth.se \\ At Abios Gaming AB \\ Supervised by Anton Janér}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+This thesis will cover the application of unsupervised learning to determine roles of players in esports teams. Esport, or electronic sport, is competition in video games. Most of the currently popular games played as esports are played as competitions between either two teams or two players. The computer game used for this thesis is {\it Counter-strike: Global Offensive} (henceforth referred to as CS:GO), which will be described further in the next section. The game is played by two teams competing against each other, with players filling different roles in the gameplay. Sometimes there are roles defined by the game, and sometimes there are roles set by the team as part of the game plan (or tactics). What this thesis will try to achieve is to find these roles in the data from played matches using unsupervised learning.
+
+\section{Background}
+\subsection{CS:GO}
+In CS:GO, two teams of five players compete by using guns and other utilities to complete objectives and/or ``eliminating'' the opposing teams characters in the game. CS:GO is a {\it first person shooter} (FPS), referring to the positioning of the camera in the game being first person and the usage of guns. The game is played in rounds, with each won round giving the winning team 1 point, and the game ending when one team has received 16 points. Draws are possible and will usually be handled by overtime, meaning the winning score will be increased from 16. The teams each play as one of two sides: the {\it Terrorists}, or the {\it Counter-terrorists}. The sides are swapped when 16 rounds have been played. The objectives of each round are dependent on the side. The {\it Terrorist} side has the objective to plant a bomb at one of several designated positions on the playing field, and subsequently to guard the planted bomb during a limited time until it explodes. If the bomb explodes, or the team ``eliminates'' the opposing team's characters, the {\it Terrorist} side wins the round. The {\it Counter-terrorist} side, consequently, has the main objective to prevent the bomb from being planted. If the bomb gets planted, the objective becomes to prevent if from exploding by defusing it in time. If they manage to ``eliminate'' the opposing team's characters before the bomb gets planted {\it or} if they defuse the bomb before it explodes, the {\it Counter-terrorist} side wins the round.
+
+At the beginning of each round each player receives money to be spent on weapons and utility. The amount of money each player receives depends on their performance in the previous round, if the player's team won the previous round or how many rounds in a row the player's team has lost, amongst other factors.
+
+The roles in CS:GO are not decided by the game, but rather by the team and/or circumstance. The role a player fulfills depends on, for instance, what side the team is currently playing on, how much money the player has to spend on weapons and utility, how much money the other players in their team have, and what weapon they specialize in playing with. These are just a few of the factors that a team captain can use to decide how the team should play a round. As some of them can change with each round, players will often change their role from one round to the next. There are, however, roles that are invariant to changes in economy (such as an aggressive playing style), and roles that a player will fulfill any time during the game when the economy allows for it (such as playing with a very expensive and powerful weapon).
+
+\subsection{The data}
+In CS:GO game servers record the network communication between the server and all the clients in a {\it demo} file. This file can be used to replay the match at a later time through the game client. Abios Gaming downloads all available demo files from professional matches and extracts most of the data contained in them. The data is inserted into a relational database where it can be queried. Some of the data extracted from the demo files is positions at a regular interval, any event relevant to the above mentioned objectives, the economy of each player, and the status of each objective at the end of each round (i.e. who won the round and which objective was completed).
+
+\section{Research question}
+The research question under investigation is
+\begin{quote}
+    What major player roles exist in professional teams in CS:GO, and what parameters define these roles? And as a follow-up question: What combination of these roles comprise the most successful teams in either of these games?
+\end{quote}
+
+The practical part of the thesis will be executed at Abios Gaming AB in Stockholm. It will help in defining what player roles exist in different games and what parameters define and distinguish the roles. This information can be valuable in predicting outcomes of matches, and in constructing successful teams.
+
+The research question will be answered through the design and study of a suitable model and the selection of input parameters for the games under investigation. Once the model is designed and the data correctly calculated and formatted from the raw data provided by Abios Gaming, the model will be trained on this data and the results evaluated and presented.
+
+Designed by intuition and experience of community analysis, the following results are expected:
+\begin{quote}
+    {\bf CS:GO:} Roles will be defined by different parameters based on the side currently played by the team (the Terrorist side or the Counter-terrorist side). The roles are defined by parameters such as
+    \begin{itemize}
+        \item vicinity to teammates
+        \item selection of weapons used
+        \item selection of grenades bought and used (and when in the round they were used)
+        \item accuracy of the player
+        \item when in the round the player got their first ``kill''
+        \item when in the round the player ``dies''
+        \item how many shots the player fires in a round.
+    \end{itemize}
+\end{quote}
+
+\section{Evaluation and interest}
+To evaluate whether the research question has been answered the roles found using the unsupervised learning should be compared to existing roles defined by the community. The roles should only be accepted as well-defined if it is possible to outline the differences in the parameters defining each role.
+
+The results are planned to be relevant to Abios Gaming in developing systems to automate the detection of roles in played matches. The roles can be used to create statistics relevant to customers wanting to calculate odds or show stats in their products.
+The thesis aims to be relevant to anyone interested in the field of unsupervised learning and its applications and in particular anyone interested in the use of machine learning in esports. The research is aimed to guide any reader in the application of unsupervised learning on a new data set and with a novel research question. The search of roles in the behavior patterns is something most humans do daily, but esports gives us a unique opportunity to investigate these patterns from a machine learning rerspective, because of the detail and amount of the data available about each players behaviour in the game.
+
+\section{Pre study}
+The pre study will firstly focus on the pre-processing of the data to format it as appropriate input data for the training. It will also cover different approaches to unsupervised learning and the strengths, weaknesses, and potential errors of each method.
+
+\cite{hastie2009unsupervised} provides an introduction to several approaches of unsupervised learning and their applications. Section 14.3 in particular discusses cluster analysis. This book will be used to understand the implementation and the differences between similar approaches to cluster analysis.
+
+\cite{zhang1999k} discusses an alternative clustering algorithm called {\it K-Harmonic Means} (KHM). The paper mentions that the KHM algorithm is ``essentially insensitive to the initialisation of the centers'', where the initialisation of the centers can be a problem for the {\it K-Means} algorithm.
+
+In \cite{DrachenA.2012Gsad}, {\it K-Means} clustering is used on player behaviour data from two major game titles. This reference can help in preparing the data and outline difficulties in handling high-dimensional data. It also handles clustering based on player behaviour, albeit in very different types of games.
+
+\cite{DrachenA.2015Sdis} presents measures of spatio-temporal behaviour in the computer game {\it Defence of the Ancients 2}. This paper will be useful for how the attributes are chosen and calculated, such as team distance as mentioned in the paper.
+
+\cite{BaumannFlorian2018HGPR}, similarly to \cite{DrachenA.2012Gsad}, applies {\it K-Means} clustering to behavioural data. In this paper, however, the data is not from the behaviour in games, but rather the behaviour on the gaming platform {\it Steam}.
+
+\cite{GobinathR.2013Aokm} will be used as a reference for applying the previously mentioned {\it K-Harmonic Means} algorithm. The paper applies the clustering algorithm to data from navigational patterns in users traversing a website. It covers data collection, pre-processing, and feature extraction which all will be relevant to this thesis as well.
+
+\bibliography{bibliography}{}
+\bibliographystyle{plain}
+
+\end{document}
