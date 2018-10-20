@@ -65,7 +65,7 @@ def aggregate_replay(cur, replay_id):
 
         # Get player positions this round
         cur.execute("""
-            SELECT round_clock, pos_x, pos_y, pos_z
+            SELECT round_clock, pos_x, pos_y, pos_z, player_id
             FROM CsPosition
             WHERE round_id=%s
             ORDER BY round_clock ASC
@@ -73,97 +73,63 @@ def aggregate_replay(cur, replay_id):
 
         positions = cur.fetchall()
 
-        positions_per_second = {}
+        positions_per_second = {} # Positions of each player every second
         distance_per_second = {} # Distance to team center per second
 
         # Save each player position at each round_clock
         for pos in positions:
+            p_id = pos[4]
             if pos[0] in positions_per_second:
                 positions_per_second[pos[0]][p_id] = pos[1:4]
             else:
                 positions_per_second[pos[0]] = {p_id: pos[1:4]}
 
+        # Loop over each second where a player position is found
         for round_clock in positions_per_second:
-            _debug(f'Round clock: {pos[0]}')
-
             # Add each player position at this time
-            team_pos = (0, 0, 0)
+            team_pos = {0: (0, 0, 0), 1: (0, 0, 0)}
+            n_positions = {0: 0, 1: 0}
 
-            for _, player_pos in positions_per_second[round_clock].items():
-                team_pos = (team_pos[0] + player_pos[0], team_pos[1] + player_pos[1], team_pos[2] + player_pos[2])
+            for p_id, player_pos in positions_per_second[round_clock].items():
+                team = player_team[p_id]
+                team_pos[team] = (team_pos[team][0] + player_pos[0], team_pos[team][1] + player_pos[1], team_pos[team][2] + player_pos[2])
+                n_positions[team] += 1
 
+            team_centers = {}
             # Mean team position
-            n_positions = len(positions_per_second[round_clock])
-
-            ## If division by zero, something went wrong earlier
-            team_pos = (team_pos[0] / n_positions, team_pos[1] / n_positions, team_pos[2] / n_positions)
-
-            _debug(f'Team center: {team_pos}')
+            for t_id, pos in team_pos.items():
+                if n_positions[t_id] == 0:
+                    continue
+                
+                pos = (pos[0] / n_positions[t_id], pos[1] / n_positions[t_id], pos[2] / n_positions[t_id])
+                team_centers[t_id] = pos
 
             # Calculate distance to team center for each player at current round_clock
-            for p_id, player_pos in positions_per_second[round_clock]:
+            for p_id, player_pos in positions_per_second[round_clock].items():
+                team_center = team_centers[player_team[p_id]]
                 distance = math.sqrt(
-                        (team_pos[0] - player_pos[1])**2 +
-                        (team_pos[1] - player_pos[2])**2 +
-                        (team_pos[2] - player_pos[3])**2)
+                        (team_center[0] - player_pos[0])**2 +
+                        (team_center[1] - player_pos[1])**2 +
+                        (team_center[2] - player_pos[2])**2)
 
                 if round_clock in distance_per_second:
                     distance_per_second[round_clock][p_id] = distance
                 else:
                     distance_per_second[round_clock] = {p_id: distance}
+        # !Loop over each second where a player position is found
 
-
-
+        # Average distances for each player this round
         for p_id in player_ids:
-            _verbose(f'Player: {p_id}')
-            _verbose('--------------')
-            attributes = []
-
-            cur.execute("""
-                SELECT round_clock, pos_x, pos_y, pos_z
-                FROM CsPosition
-                WHERE round_id=%s AND player_id=%s
-                ORDER BY round_clock ASC
-            """, (r, p_id))
-
-            positions = cur.fetchall()
-
-            positions_per_second = {}
-
-            # Save each player position at each round_clock
-            for pos in positions:
-                if pos[0] in positions_per_second:
-                    positions_per_second[pos[0]][p_id] = pos[1:4]
-                else:
-                    positions_per_second[pos[0]] = {p_id: pos[1:4]}
-
-            for round_clock in positions_per_second:
-                _debug(f'Round clock: {pos[0]}')
-
-                # Add each player position at this time
-                team_pos = (0, 0, 0)
-
-                for _, player_pos in positions_per_second[round_clock].items():
-                    team_pos = (team_pos[0] + player_pos[0], team_pos[1] + player_pos[1], team_pos[2] + player_pos[2])
-
-                # Mean team position
-                n_positions = len(positions_per_second[round_clock])
-
-                ## If division by zero, something went wrong earlier
-                team_pos = (team_pos[0] / n_positions, team_pos[1] / n_positions, team_pos[2] / n_positions)
-
-                # Distance to team center
-                distance = math.sqrt(
-                        (team_pos[0] - player_pos[1])**2 +
-                        (team_pos[1] - player_pos[2])**2 +
-                        (team_pos[2] - player_pos[3])**2)
-
-                attributes.append(distance)
-
-                _debug(f'Player position: ({pos[1]}, {pos[2]}, {pos[3]})')
-                _debug(f'Team center: ({team_pos[0]}, {team_pos[1]}, {team_pos[2]})')
-                _debug(f'Distance: {distance}')
-
+            distance = 0
+            n_distances = 0
+            for round_clock, positions in positions_per_second.items():
+                if p_id in positions:
+                    n_dinstances += 1
+                    distance += positions[p_id]
+            
+            # Average player distance
+            distance /= n_distances
+            _debug(f'Player {p_id} had avg distance {distance}')
 
         # for p in player_ids:
             # write_datapoint(replay_id, r, p)
