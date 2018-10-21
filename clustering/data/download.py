@@ -119,20 +119,31 @@ def aggregate_replay(cur, replay_id):
         # !Loop over each second where a player position is found
 
         # Average distances for each player this round
+        player_distances = {}
         for p_id in player_ids:
             distance = 0
             n_distances = 0
-            for round_clock, positions in positions_per_second.items():
-                if p_id in positions:
-                    n_dinstances += 1
-                    distance += positions[p_id]
+            for round_clock, distances in distance_per_second.items():
+                if p_id in distances:
+                    n_distances += 1
+                    distance += distances[p_id]
             
             # Average player distance
-            distance /= n_distances
-            _debug(f'Player {p_id} had avg distance {distance}')
+            if n_distances == 0:
+                raise Error("Missing positions")
 
-        # for p in player_ids:
-            # write_datapoint(replay_id, r, p)
+            distance /= n_distances
+            player_distances[p_id] = distance
+
+        # Normalize player avg distances
+        player_distances_sum = {}
+        for i in [0, 1]:
+            player_distances_sum[i] = sum([d**2 for p_id, d in player_distances.items() if player_team[p_id] == i]) 
+
+        player_distances = {p_id: d/math.sqrt(player_distances_sum[player_team[p_id]]) for p_id, d in player_distances.items()}
+
+        for p in player_ids:
+            write_datapoint(replay_id, r, p, player_distances[p])
 
 if __name__ == '__main__':
     cur = connect()
