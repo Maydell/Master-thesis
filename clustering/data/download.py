@@ -142,14 +142,23 @@ def aggregate_replay(cur, replay_id):
 
         player_distances = {p_id: d/math.sqrt(player_distances_sum[player_team[p_id]]) for p_id, d in player_distances.items()}
 
-        # Get player economy for round
+        # Get player starting cash
+        cur.execute("""
+            SELECT player_id, cash
+            FROM CsEconomy
+            WHERE round_id=%s AND round_clock=-1
+        """, r)
+
+        starting_cash = cur.fetchall()
+
+        # Get player cash after buy period
         cur.execute("""
             SELECT player_id, cash
             FROM CsEconomy
             WHERE round_id=%s AND round_clock=0
         """, r)
 
-        economy = cur.fetchall()
+        cash_left = cur.fetchall()
 
         for p in player_ids:
             write_datapoint(replay_id, r, p, player_distances[p])
